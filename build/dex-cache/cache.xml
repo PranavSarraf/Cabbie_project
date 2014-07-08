@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="C:\Users\Pranav Sarraf\AndroidStudioProjects\Cabbie_App\app\build\pre-dexed\debug\classes-b2105a7e20479ab2ca626459a47f7abc0260a7c9.jar"
+        jar="C:\Users\Pranav Sarraf\AndroidStudioProjects\Cabbie_App\build\exploded-aar\com.android.support\appcompat-v7\19.0.1\classes.jar"
+        jumboMode="false"
+        revision="19.0.3"
+        sha1="f71a6822470c9eb659d4f4a6cb57b780b35f058b"/>
+    <item
+        dex="C:\Users\Pranav Sarraf\AndroidStudioProjects\Cabbie_App\app\build\pre-dexed\debug\support-v4-19.0.1-c04d70cbff53b87bcb609818227185b74c8e3b09.jar"
+        jar="C:\Users\Pranav Sarraf\AppData\Local\Android\android-studio5\sdk\extras\android\m2repository\com\android\support\support-v4\19.0.1\support-v4-19.0.1.jar"
+        jumboMode="false"
+        revision="19.0.3"
+        sha1="587da9a481ffd341d2fa091704489b89845ddacd"/>
+
+</pre-dex-items>

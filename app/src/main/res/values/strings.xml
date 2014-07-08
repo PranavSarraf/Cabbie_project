@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Cabbie</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_form">FormActivity</string>
+    <string name="feedbacktype">Designation</string>
+    <string name="feedbacktype1">Manager</string>
+    <string name="feedbacktype2">Assistent</string>
+    <string name="feedbacktype3">Scientist "B"</string>
+    <string name="feedbacktype4">Scientist "A"</string>
+    <string-array name="feedbacktypelist">
+        <item>@string/feedbacktype1</item>
+        <item>@string/feedbacktype2</item>
+        <item>@string/feedbacktype3</item>
+        <item>@string/feedbacktype4</item>
+    </string-array>
+
+</resources>
