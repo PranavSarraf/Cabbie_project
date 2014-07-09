@@ -175,6 +175,9 @@ public class GPSTracker extends Service implements LocationListener {
         alertDialog.show();}
 
 
+
+
+
     @Override
     public void onLocationChanged(Location location) {
     }

@@ -88,6 +88,16 @@
             android:text="Register"
 
             android:onClick="doSomethingElse"/>
+        <Button
+        android:id="@+id/buttonGetLocation"
+            android:layout_marginTop="20sp"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="#d28f35"
+        android:layout_gravity="center"
+        android:text="Get location"
+
+        android:onClick="doSomethingElse"/>
 
     </LinearLayout>
 </ScrollView>

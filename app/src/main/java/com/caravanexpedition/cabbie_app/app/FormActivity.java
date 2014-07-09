@@ -1,50 +1,50 @@
 package com.caravanexpedition.cabbie_app.app;
 
+import android.app.ProgressDialog;
+import android.location.Address;
+import android.location.Geocoder;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-
-        import java.util.ArrayList;
-        import java.util.List;
-
-        import org.apache.http.NameValuePair;
-        import org.apache.http.message.BasicNameValuePair;
-        import org.json.JSONException;
-        import org.json.JSONObject;
-
-        import android.app.ProgressDialog;
-        import android.content.Intent;
-        import android.os.AsyncTask;
-        import android.os.Bundle;
-        import android.support.v7.app.ActionBarActivity;
-        import android.util.Log;
-        import android.view.Menu;
-        import android.view.MenuItem;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.EditText;
-        import android.widget.Spinner;
-        import android.widget.Toast;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class FormActivity extends ActionBarActivity {
-    private ProgressDialog pDialog ;
+    private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
+    GPSTracker gps;
     // url to create new product
-    private static String url_create_product = "http://localhost/Android/create_product.php";
+    private static String url_create_product = "http://192.168.1.9:8080/Android/create_product.php";
+    double latitude;
+    double longitude;
+    String sb =null;
 
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
     private static final String TAG = FormActivity.class.getSimpleName();
-    EditText name ;
-    EditText id ;
-    EditText Phone ;
-    EditText email ;
-    EditText address ;
-    EditText password ;
+    EditText name;
+    EditText id;
+    EditText Phone;
+    EditText email;
+    EditText E_address;
+    EditText password;
     Spinner spinner;
-    Button button ;
-
+    Button button;
 
 
     @Override
@@ -55,107 +55,143 @@ public class FormActivity extends ActionBarActivity {
         id = (EditText) findViewById(R.id.EditTextE_id);
         Phone = (EditText) findViewById(R.id.EditTextPhone);
         email = (EditText) findViewById(R.id.EditTextEmail);
-        address = (EditText) findViewById(R.id.EditTextLocation);
+        E_address = (EditText) findViewById(R.id.EditTextLocation);
         password = (EditText) findViewById(R.id.EditTextPassword);
         spinner = (Spinner) findViewById(R.id.SpinnerFeedbackType);
         button = (Button) findViewById(R.id.buttonRegister);
     }
 
-    public void doSomethingElse(View v){
-        if(v.getId()==R.id.buttonRegister)
-        {
+    public void doSomethingElse(View v) {
+        if (v.getId() == R.id.buttonRegister) {
             new AddEmployee().execute();
-        }
-    }
+        } else if (v.getId() == R.id.buttonGetLocation) {
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+            gps = new GPSTracker(FormActivity.this);
 
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.form, menu);
-        return true;
-    }
+            // check if GPS enabled
+            if (gps.canGetLocation()) {
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+                latitude = gps.getLatitude();
+                longitude = gps.getLongitude();
+                Toast.makeText(getApplicationContext(),"Latitude: "+ latitude +  "\n" + "Longitude"+longitude,Toast.LENGTH_LONG).show();
 
-    private class AddEmployee extends AsyncTask<String,String,String> {
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(FormActivity.this);
-            pDialog.setMessage("Creating Product..");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
-        }
+                //E_address.setText("Latitude: "+ latitude +  "\n" + "Longitude"+longitude);
+                // \n is for new line
 
-        protected String doInBackground(String... args) {
-            String Name = name.getText().toString();
-            String E_id = id.getText().toString();
-            String Designation = spinner.getSelectedItem().toString();
-            String Location = address.getText().toString();
-            String Password = password.getText().toString();
-            String Email = email.getText().toString();
-            String Phone_number = Phone.getText().toString();
+               final Geocoder  geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                if(geocoder.isPresent()) {
 
-            // Building Parameters
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("Name", Name));
-            params.add(new BasicNameValuePair("E_id", E_id));
-            params.add(new BasicNameValuePair("Designation", Designation));
-            params.add(new BasicNameValuePair("Email", Email));
-            params.add(new BasicNameValuePair("Phone_number", Phone_number));
-            params.add(new BasicNameValuePair("Location", Location));
-            params.add(new BasicNameValuePair("Password", Password));
-
-            // getting JSON Object
-            // Note that create product url accepts POST method
-            JSONObject json = jsonParser.getJSONFromUrl(url_create_product,
-                    params);
+                  new Thread(new Runnable() {
+                      @Override
+                      public void run() {
+                          try {
+                              List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
 
 
-            // check for success tag
-            try {
-                int success = json.getInt(TAG_SUCCESS);
+                              sb += addresses.get(0).getAddressLine(1);
+                              sb += addresses.get(0).getAddressLine(2);
+                              sb += addresses.get(0).getAddressLine(3);
 
-                if (success == 1) {
-                    // successfully created product
+                              E_address.post(new Runnable() {
+                                  @Override
+                                  public void run() {
+                                      E_address.setText(sb);
+                                  }
+                              });
+                          } catch (IOException e){
+                              Log.e("yayayayaya ","Execption Occued!: "+ e);
+                          }
+                  }
+                  }).start();
 
-                    Log.d(TAG, "Connection Sucessful: " + success);
-                    // closing this screen
-
-                } else {
-                    // failed to create product
-                    Log.d(TAG, "Connection  Not Sucessful: " +success);
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
+
+
+
+            }else {
+                // can't get location
+                // GPS or Network is not enabled
+                // Ask user to enable GPS/network in settings
+                gps.showSettingsAlert();
+            }
+        }
+    }
+
+
+
+
+
+
+        private class AddEmployee extends AsyncTask<String, String, String> {
+            /**
+             * Before starting background thread Show Progress Dialog
+             * */
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                pDialog = new ProgressDialog(FormActivity.this);
+                pDialog.setMessage("Creating Product..");
+                pDialog.setIndeterminate(false);
+                pDialog.setCancelable(true);
+                pDialog.show();
             }
 
-            return null;
-        }
-        /**
-         * After completing background task Dismiss the progress dialog
-         * **/
-        protected void onPostExecute(String file_url) {
-            // dismiss the dialog once done
-            pDialog.dismiss();
-        }
+            protected String doInBackground(String... args) {
+                String Name = name.getText().toString();
+                String E_id = id.getText().toString();
+                String Designation = spinner.getSelectedItem().toString();
+                String Location = E_address.getText().toString();
+                String Password = password.getText().toString();
+                String Email = email.getText().toString();
+                String Phone_number = Phone.getText().toString();
 
+                // Building Parameters
+                List<NameValuePair> params = new ArrayList<NameValuePair>();
+                params.add(new BasicNameValuePair("Name", Name));
+                params.add(new BasicNameValuePair("E_id", E_id));
+                params.add(new BasicNameValuePair("Designation", Designation));
+                params.add(new BasicNameValuePair("Email", Email));
+                params.add(new BasicNameValuePair("Phone_number", Phone_number));
+                params.add(new BasicNameValuePair("Location", Location));
+                params.add(new BasicNameValuePair("Password", Password));
+
+                // getting JSON Object
+                // Note that create product url accepts POST method
+                JSONObject json = jsonParser.getJSONFromUrl(url_create_product,
+                        params);
+
+
+                // check for success tag
+                try {
+                    int success = json.getInt(TAG_SUCCESS);
+
+                    if (success == 1) {
+                        // successfully created product
+
+                        Log.d(TAG, "Connection Sucessful: " + success);
+                        // closing this screen
+
+                    } else {
+                        // failed to create product
+                        Log.d(TAG, "Connection  Not Sucessful: " + success);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+
+            /**
+             * After completing background task Dismiss the progress dialog
+             * **/
+            protected void onPostExecute(String file_url) {
+                // dismiss the dialog once done
+                pDialog.dismiss();
+            }
+
+        }
     }
-}
+
 
 
