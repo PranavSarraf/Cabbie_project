@@ -2,17 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.caravanexpedition.cabbie_app.app" >
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="19" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-     >
-
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".MainLoginActivity"
             android:label="@string/app_name" >
@@ -25,11 +27,52 @@
         <activity
             android:name=".FormActivity"
             android:label="@string/title_activity_form"
+            android:parentActivityName=".MainLoginActivity"
+            android:theme="@style/AppTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.caravanexpedition.cabbie_app.app.MainLoginActivity" />
+        </activity>
+        <activity
+            android:name=".MainScreenActivity"
+            android:label="@string/title_activity_main_screen"
             android:parentActivityName=".MainLoginActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.caravanexpedition.cabbie_app.app.MainLoginActivity" />
         </activity>
+        <activity
+            android:name=".SetPriorityActivity"
+            android:label="@string/title_activity_set_priority"
+            android:parentActivityName=".MainScreenActivity"
+            android:theme="@style/Theme.Base.AppCompat.Light.DarkActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.caravanexpedition.cabbie_app.app.MainScreenActivity" />
+        </activity>
+        <activity
+            android:name=".AdminLoginActivity"
+            android:label="@string/title_activity_admin_login"
+            android:theme="@style/Theme.Base.AppCompat.Light.DarkActionBar" >
+        </activity>
+        <activity
+            android:name=".AdminViewActivity"
+            android:label="@string/title_activity_admin_view"
+            android:parentActivityName=".AdminLoginActivity"
+            android:theme="@style/Theme.Base.AppCompat.Light.DarkActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.caravanexpedition.cabbie_app.app.AdminLoginActivity" />
+        </activity>
+        <activity
+            android:name=".EditProfile"
+            android:label="@string/title_activity_edit_profile" >
+        </activity>
     </application>
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
 </manifest>

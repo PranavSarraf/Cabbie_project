@@ -10,11 +10,40 @@
     <string name="feedbacktype2">Assistent</string>
     <string name="feedbacktype3">Scientist "B"</string>
     <string name="feedbacktype4">Scientist "A"</string>
+    <string name="Priorty1">Level 1</string>
+    <string name="Priorty2">Level 2</string>
+    <string name="Priorty3">Level 3</string>
+    <string name="Priorty">Priorty</string>
+    <string name="List2">Logout</string>
+    <string name="List1">Edit Profile</string>
+    <string name="List0">Check Status</string>
+
     <string-array name="feedbacktypelist">
         <item>@string/feedbacktype1</item>
         <item>@string/feedbacktype2</item>
         <item>@string/feedbacktype3</item>
         <item>@string/feedbacktype4</item>
     </string-array>
+
+    <string name="title_activity_main_screen">MainScreenActivity</string>
+    <string name="text_value"><![CDATA[<<<<<<Swipe!! back to Login Screen>>>>>> ]]></string>
+
+    <string-array name="PriortyList">
+        <item>@string/Priorty1</item>
+        <item>@string/Priorty2</item>
+        <item>@string/Priorty3</item>
+    </string-array>
+    <string-array name="mDrawerList">
+        <item>@string/List0</item>
+        <item>@string/List1</item>
+        <item>@string/List2</item>
+    </string-array>
+
+    <string name="title_activity_set_priority">SetPriorityActivity</string>
+    <string name="drawer_open">Choose Options</string>
+    <string name="drawer_close">Drawer Close</string>
+    <string name="title_activity_admin_login">AdminLoginActivity</string>
+    <string name="title_activity_admin_view">AdminViewActivity</string>
+    <string name="title_activity_edit_profile">EditProfile</string>
 
 </resources>

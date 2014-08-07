@@ -4,11 +4,14 @@
     android:id="@+id/ScrollView01"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:scrollbars="vertical">
+    android:scrollbars="vertical"
+    >
     <LinearLayout
         android:layout_width="fill_parent"
         android:orientation="vertical"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        xmlns:whatever="http://schemas.android.com/apk/res-auto"
+       >
 
         <!--Put form controls here-->
 
@@ -16,51 +19,75 @@
             android:id="@+id/TextViewTitle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="#069c88"
+            android:textColor="#1ea3d4"
             android:gravity="center"
-            android:text="Registeration form"
-            android:textColor="#fff"
-            android:textSize="30dp" />
-        <EditText
-            android:id="@+id/EditTextName"
-            android:layout_height="wrap_content"
+            android:text="Registration form"
+
+
+            android:textSize="45dp"
+           />
+
+        <com.andreabaccega.widget.FormEditText
+            whatever:testType="alpha"
+            android:id="@+id/EditName"
             android:hint="Name"
             android:inputType="textPersonName"
-            android:layout_width="fill_parent">
-        </EditText>
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:layout_marginBottom="5dip"
+            whatever:emptyErrorString="Name cannot be Empty"
+            />
 
-        <EditText
+        <com.andreabaccega.widget.FormEditText
+            whatever:testType="alphaNumeric"
             android:id="@+id/EditTextE_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="number"
-            android:hint="Employee Id" >
+            android:hint="Employee Id"
+            android:layout_marginTop="5dip"
+            android:layout_marginBottom="5dip"
+            whatever:emptyErrorString=" Cannot be Empty"/>
 
-            <requestFocus />
-        </EditText>
 
-        <EditText
-            android:id="@+id/EditTextPhone"
+
+
+        <com.andreabaccega.widget.FormEditText
+            whatever:testType="phone"
+            android:id="@+id/EditPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="phone"
-            android:hint="Phone Number" />
+            android:hint="Phone Number"
+            android:layout_marginTop="5dip"
+            android:layout_marginBottom="5dip"
+            whatever:emptyErrorString=" Cannot be Empty"
+            whatever:testErrorString="Phone number not valid"/>
 
-        <EditText
-            android:id="@+id/EditTextEmail"
+        <com.andreabaccega.widget.FormEditText
+            whatever:testType="email"
+            whatever:testErrorString="Email ID not valid"
+
+            android:id="@+id/EditEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textEmailAddress"
-            android:hint="Email" />
+            android:hint="Email"
+            android:layout_marginTop="5dip"
+            android:layout_marginBottom="5dip"
+            whatever:emptyErrorString=" Cannot be Empty"/>
         <Spinner
             android:id="@+id/SpinnerFeedbackType"
             android:layout_height="wrap_content"
             android:prompt="@string/feedbacktype"
             android:layout_width="fill_parent"
-            android:entries="@array/feedbacktypelist">
+            android:entries="@array/feedbacktypelist"
+            android:layout_marginTop="5dip"
+            android:layout_marginBottom="5dip">
         </Spinner>
 
         <EditText
@@ -69,7 +96,9 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPostalAddress"
-            android:hint="Location" />
+            android:hint="Location"
+            android:layout_marginTop="5dip"
+            android:layout_marginBottom="5dip"/>
 
         <EditText
             android:id="@+id/EditTextPassword"
@@ -77,27 +106,32 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPassword"
-            android:hint="Password" />
+            android:hint="Password"
+            android:layout_marginTop="5dip"
+            android:layout_marginBottom="5dip"/>
 
         <Button
             android:id="@+id/buttonRegister"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:background="#d28f35"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#1ea3d4"
             android:layout_gravity="center"
             android:text="Register"
+             android:onClick="doSomethingElse"
+            android:layout_marginTop="13dip"
+            />
 
-            android:onClick="doSomethingElse"/>
-        <Button
-        android:id="@+id/buttonGetLocation"
-            android:layout_marginTop="20sp"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:background="#d28f35"
-        android:layout_gravity="center"
-        android:text="Get location"
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/text_value"
+            android:id="@+id/textView1 "
+            android:gravity="center"
+            android:textColor="#1ea3d4"
 
-        android:onClick="doSomethingElse"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dip"/>
 
     </LinearLayout>
 </ScrollView>
